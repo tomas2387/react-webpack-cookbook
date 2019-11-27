@@ -1,35 +1,57 @@
 {
-  "name": "react-webpack-cookbook",
-  "version": "0.0.0",
-  "description": "React Webpack cookbook",
-  "main": "./index.js",
+  "name": "survivejs-webpack",
+  "private": true,
+  "version": "2.4.9",
+  "description": "SurviveJS - Webpack",
   "scripts": {
-    "generate-gitbook": "gitbook build ./content ./gh-pages",
-    "generate-wiki": "node ./scripts/generate-wiki.js",
-    "deploy-gitbook": "node ./scripts/deploy-gh-pages.js",
-    "deploy-wiki": "./scripts/deploy-wiki.sh",
-    "generate-and-deploy": "npm run generate-gitbook && npm run generate-wiki && npm run deploy-gitbook && npm run deploy-wiki",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "publish:silent": "leanpub-cli publish-silent survivejs-webpack",
+    "preview": "leanpub-cli preview survivejs-webpack",
+    "job-status": "leanpub-cli job-status survivejs-webpack",
+    "test": "npm run textlint && npm run remark",
+    "test:links": "check-markdown-links manuscript",
+    "proselint": "proselintjs \"manuscript/**/*.md\"",
+    "textlint": "textlint \"manuscript/*.md\" && textlint \"manuscript/**/*.md\"",
+    "keywords": "node ./utils/keywords",
+    "remark": "remark manuscript",
+    "postcommit": "npm test",
+    "prepush": "npm test",
+    "push": "git push && npm run preview"
+  },
+  "remarkConfig": {
+    "plugins": [
+      "preset-survivejs"
+    ]
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/christianalfoni/react-webpack-cookbook.git"
+    "url": "https://github.com/survivejs/webpack-book.git"
   },
   "keywords": [
     "react",
     "webpack"
   ],
   "author": "",
-  "license": "MIT",
+  "license": "CC BY-NC-ND",
   "bugs": {
-    "url": "https://github.com/christianalfoni/react-webpack-cookbook/issues"
+    "url": "https://github.com/survivejs/webpack-book/issues"
   },
-  "homepage": "https://github.com/christianalfoni/react-webpack-cookbook",
-  "dependencies": {
-    "async": "^0.9.0",
-    "fs-extra": "^0.18.2",
-    "gh-pages": "^0.2.0",
-    "gitbook-cli": "^0.3.3"
-  },
-  "devDependencies": {}
+  "homepage": "https://github.com/survivejs/webpack-book",
+  "dependencies": {},
+  "devDependencies": {
+    "check-markdown-links": "^0.1.1",
+    "glob": "^7.1.1",
+    "husky": "^0.13.2",
+    "leanpub-cli": "^0.2.0",
+    "nlcst-to-string": "^2.0.0",
+    "proselint": "^0.1.7",
+    "remark-cli": "^3.0.0",
+    "remark-preset-survivejs": "^0.2.1",
+    "retext": "^5.0.0",
+    "retext-keywords": "^4.0.0",
+    "textlint": "^7.3.0",
+    "textlint-rule-common-misspellings": "^1.0.1",
+    "textlint-rule-terminology": "^1.1.6",
+    "textlint-rule-write-good": "^1.6.0",
+    "to-vfile": "^2.1.1"
+  }
 }
